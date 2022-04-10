@@ -1,0 +1,23 @@
+###
+## Invalid request
+POST http://localhost:8090/superhero
+
+  {
+       "name": "",
+       "superName": "Captain America",
+       "profession": null,
+       "age": 90,
+       "canFly": true
+ }
+
+###
+## Valid request
+POST http://localhost:8090/superhero
+
+ {
+       "name": "Tony",
+       "superName": "Iron Man",
+       "profession": "Business",
+       "age": 50,
+       "canFly": true
+}
