@@ -2,6 +2,7 @@ package com.spring.validation.demo.service.impl;
 
 import com.spring.validation.demo.dto.SuperHeroDto;
 import com.spring.validation.demo.entities.SuperHero;
+import com.spring.validation.demo.exception.SuperHeroNotFound;
 import com.spring.validation.demo.repository.SuperHeroRepository;
 import com.spring.validation.demo.service.SuperHeroService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,10 +47,11 @@ public class SuperHeroServiceImpl implements SuperHeroService {
 
     @Override
     public SuperHeroDto findById(int id) {
-        Optional<SuperHero> superHeroOptional = superHeroRepository.findById(id);
+        SuperHero superHero = superHeroRepository.findById(id)
+                .orElseThrow(() -> new SuperHeroNotFound("Super hero not found for id: " + id));
         SuperHeroDto superHeroDto = new SuperHeroDto();
-        superHeroOptional.ifPresent(superHero -> BeanUtils.copyProperties(superHeroDto, superHero));
-        return null;
+        BeanUtils.copyProperties(superHeroDto, superHero);
+        return superHeroDto;
     }
 
 }
