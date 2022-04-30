@@ -38,7 +38,7 @@ public class SuperHeroServiceImpl implements SuperHeroService {
         if (!CollectionUtils.isEmpty(superHeroes)) {
             superHeroes.forEach(superHero -> {
                 SuperHeroDto superHeroDto = new SuperHeroDto();
-                BeanUtils.copyProperties(superHeroDto, superHero);
+                BeanUtils.copyProperties(superHero, superHeroDto);
                 superHeroDtoList.add(superHeroDto);
             });
         }
@@ -50,7 +50,7 @@ public class SuperHeroServiceImpl implements SuperHeroService {
         SuperHero superHero = superHeroRepository.findById(id)
                 .orElseThrow(() -> new SuperHeroNotFound("Super hero not found for id: " + id));
         SuperHeroDto superHeroDto = new SuperHeroDto();
-        BeanUtils.copyProperties(superHeroDto, superHero);
+        BeanUtils.copyProperties(superHero, superHeroDto);
         return superHeroDto;
     }
 

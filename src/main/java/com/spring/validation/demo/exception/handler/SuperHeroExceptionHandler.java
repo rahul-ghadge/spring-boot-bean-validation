@@ -18,15 +18,17 @@ public class SuperHeroExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleInvalidArgument(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Map<String, Object>> handleInvalidArgument(MethodArgumentNotValidException ex) {
 //        Map<String, String> errors = new HashMap<>();
 //        ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
 //        return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
 
-        Map<String, String> errors = ex.getBindingResult()
+        Map<String, Object> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+        errors.put("status", HttpStatus.BAD_REQUEST.value());
+
         return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
     }
 
@@ -37,6 +39,6 @@ public class SuperHeroExceptionHandler {
         Map<String, Object> errors = new HashMap<>();
         errors.put("status", HttpStatus.NOT_FOUND.value());
         errors.put("message", ex.getLocalizedMessage());
-        return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(errors, HttpStatus.NOT_FOUND);
     }
 }
