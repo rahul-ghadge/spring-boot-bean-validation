@@ -1,2 +1,2 @@
-# spring-boot-bean-validation
-Spring boot bean validation for request parameters
+# spring-boot-request-validation
+Spring boot request validation for request parameters
