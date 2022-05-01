@@ -54,4 +54,22 @@ public class SuperHeroServiceImpl implements SuperHeroService {
         return superHeroDto;
     }
 
+    @Override
+    public SuperHeroDto update(int id, SuperHeroDto superHeroDto) {
+        SuperHero superHero = superHeroRepository.findById(id)
+                .orElseThrow(() -> new SuperHeroNotFound("Super hero not found for id: " + id));
+
+        BeanUtils.copyProperties(superHeroDto, superHero);
+        superHero = superHeroRepository.save(superHero);
+        superHeroDto.setId(superHero.getId());
+        return superHeroDto;    }
+
+    @Override
+    public void delete(int id) {
+        SuperHero superHero = superHeroRepository.findById(id)
+                .orElseThrow(() -> new SuperHeroNotFound("Super hero not found for id: " + id));
+
+        superHeroRepository.delete(superHero);
+    }
+
 }

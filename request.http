@@ -1,8 +1,9 @@
 ###
 ## Invalid request
 POST http://localhost:8090/superhero
+Content-Type: application/json
 
-  {
+{
        "name": "",
        "superName": "Captain America",
        "profession": null,
@@ -13,11 +14,16 @@ POST http://localhost:8090/superhero
 ###
 ## Valid request
 POST http://localhost:8090/superhero
+Content-Type: application/json
 
- {
+{
        "name": "Tony",
        "superName": "Iron Man",
        "profession": "Business",
        "age": 50,
        "canFly": true
 }
+
+
+###
+GET http://localhost:8090/superhero/1
